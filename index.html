@@ -1,47 +1,608 @@
+
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Beschreibung deiner Webseite">
-    <meta name="author" content="Dein Name">
-    <meta name="keywords" content="Stichwörter, deiner, Webseite">
-    <title>Meine Webseite</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-  </head>
-  <body>
-    <header>
-      <h1>Willkommen auf meiner Webseite</h1>
-      <nav>
-        <ul>
-          <li><a href="#home">pppdpe
-          </a></li>
-          <li><a href="#about">Über uns</a></li>
-          <li><a href="#contact">Kontakt</a></li>
-        </ul>
-      </nav>
-    </header>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meine co2 vergleichs Website</title>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+<style>
+ header {
+  display: flex;
+  justify-content: flex-end; /* Positioniert den Inhalt am rechten Rand */
+  direction: ltr;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #eef7ef;
+  -webkit-text-fill-color:  #36773a;
+}
+
+header nav ul {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+header nav ul li select {
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  color: #36773a;
+  font-family: inherit;
+}
+[dir="rtl"] header nav ul {
+  justify-content: flex-start;
+}
+header nav ul li {
+  margin-left: 20px;
+}
+
+header nav ul li a {
+  -webkit-text-fill-color: rgb(54, 103, 64);
+  font-size: 16px;
+  text-decoration: none;
+}
+
+header nav ul li a:hover {
+  text-decoration: none;
+  -webkit-text-fill-color: rgb(75, 144, 87);
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  min-width: 60px; /* Minimale Breite */
+  width: 60px; /* Startbreite */
+  background-color: #36773a;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  z-index: 1000;
+ 
+}
+
+.sidebar:hover {
+  width: 200px; /* Maximale Breite */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  width: 90%;
+  border-radius: 30px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin: 0 auto; /* zentriert bei breiter Sidebar */
+}
+
+.sidebar ul li a:hover {
+  background-color: #4e9258;
+  transform: scale(1.05);
+}
+
+.sidebar ul li a img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.sidebar:hover ul li a img {
+  transform: scale(1.1);
+}
+
+.sidebar ul li a span {
+  display: none;
+}
+
+.sidebar:hover ul li a span {
+  display: inline-block;
+}
+
+
+.home-icon {
+  position: fixed;
+  top: 7px;
+  left: 7px;
+  background-color: #36773a;
+  border-radius: 50%;
+  padding: 10px;
+  display: none;
+  z-index: 1001;
+}
+
+.home-icon img {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+.home-icon:hover {
+  background-color: #264653;
+}
+
+.hero {
+  background-image: url('zac-wolff-ZTbMpMGB_7A-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Viewport-Höhe */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+
+}
+.hero-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+.hero-overlay h1 {
+  font-size: 64px; /* große Schrift */
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.hero-overlay p {
+  font-size: 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0),  #05260b);
+  z-index: 1;
+}
+
+
+.news-section,
+.events-section {
+  background-color:   #05260b; /* weiches, leicht grünliches Weiß */
+  padding: 60px 20px;
+}
+
+.news-section h2,
+.events-section h2 {
+  color: #fffdec; /* dunkler Grünton für mehr Kontrast */
+}
+
+
+main {
+      padding: 0px;
+      margin-left: 60px;
+      color: black;
+}
+
+    .news-item {
+      display: flex;
+      background-color: rgb(255, 255, 255);
+      border-radius: 30px;
+      box-shadow: 0px 2px 50px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      overflow: hidden;
+      background-color: #eaf4ec; /* Sanftes hellgrün, harmonisch zum Co2-Thema */
+  padding: 60px 20px;
+  transition: background-color 0.5s ease-in-out;
+    }
+    .news-item img {
+      width: 20%;
+      height: auto;
+    }
+    .news-item-content {
+      padding: 15px;
+      width: 80%;
+    }
+    .news-item h3 {
+      margin-top: 0;
+      color: black;
+    }
+
+    .news-item:hover h3 {
+  color: #3f3f3f; /* Wähle hier die gewünschte Hover-Farbe */
+}
+    .news-link {
+  display: block;
+  text-decoration: none; /* Verhindert die Standard-Unterstreichung */
+  transition: background-color 0.3s ease;
+}
+
+.news-link:hover {
+  background-color: #eaf4ec; /* Hellt den Hintergrund beim Hover auf */
+  text-decoration: none; 
+  color: #3f3f3f;/* Stellen sicher, dass keine Unterstreichung beim Hover erscheint */
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+footer {
+  background-color: #36773a;
+  color: rgb(199, 247, 202);
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-links li {
+  margin: 0;
+}
+
+.footer-links a {
+  color: rgb(199, 247, 202);
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.footer-links a:hover {
+  text-decoration: none;
+  -webkit-text-fill-color: rgb(255, 255, 255);
+}
+
+@media (max-width: 1024px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+      }
+      .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+  .sidebar ul li {
+    margin: 0 10px;
+    list-style: none;
+  }
+  .sidebar a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+      .sidebar:hover {
+        width: 100%;
+      }
+      .menu-text {
+    display: none !important;
+  }
+  
+      .hero {
+        height: auto;
+        padding: 100px 20px;
+        background-position: top;
+      }
+      .hero-overlay h1 {
+        font-size: 48px;
+      }
+      .hero-overlay p {
+        font-size: 20px;
+      }
+      .news-item {
+        flex-direction: column;
+        align-items: center;
+      }
+      .news-item img,
+      .news-item-content {
+        width: 100%;
+      }
+      main {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-overlay h1 {
+        font-size: 36px;
+      }
+      .hero-overlay p {
+        font-size: 18px;
+      }
+      .news-item {
+        padding: 20px;
+      }
+      .footer-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+    @media (max-width: 768px) {
+  header {
+    justify-content: center;
+    padding: 10px;
+    
+  }
+
+  header nav ul {
+   justify-content: center;
+  }
+
+  header nav ul li {
+    margin: 0px 30px;
+  }
+
+  header nav ul li a {
+    font-size: 16px;
+  }
+
+}
+
+</style>
+
+
+
+
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="kontakt.html" id="contactLink" data-key="contact">Kontakt</a></li>
+        <li>
+          <select id="languageSwitcher" onchange="switchLanguage()">
+            <option value="de" selected>Deutsch</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="ar">العربية</option>
+          </select>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  
+
+
+  
+  <div class="sidebar">
+    <ul>
+      <li><a href="/index.html"><img src="co2.png" alt="Home"><span class="menu-text"> Home</span></a></li>
+      <li><a href="welt.html"><img src="pixelWelt.png" alt="Welt"><span class="menu-text">  Länder</span></a></li>
+      <li><a href="unternehmen.html"><img src="unternehmen.png" alt="firma"><span class="menu-text">  Firmen</span></a></li>
+      <li><a href="mission.html"><img src="mission.png" alt="Welt"><span class="menu-text">  Mission</span></a></li>
+      <li><a href="gemeinsam.html"><img src="planm.png" alt="Welt"><span class="menu-text">  Mitmachen</span></a></li>
+    </ul> 
+  </div>
+
+  
+    <a href="/index.html" class="home-icon"><img src="co2.png" alt="Home"></a>
+
+   
+  <section class="hero">
+    <div class="hero-overlay">
+      <h1 id="heroTitle" data-key="headline">Co2-World</h1>
+      <p id="heroSubtitle" data-key="subtitle">Dein Kompass für Klimawissen, Nachhaltigkeit und aktuellen Entwicklungen</p>
+      
+    </div>
+  </section>
+
+  
+
 
     <main>
-      <section id="home">
-        <h2>Startseite</h2>
-        <p>Inhalt der Startseite...</p>
-      </section>
 
-      <section id="about">
-        <h2>Über uns</h2>
-        <p>Informationen über uns...</p>
-      </section>
+     
+     
+     
 
-      <section id="contact">
-        <h2>Kontakt</h2>
-        <p>Kontaktinformationen...</p>
+      <section class="news-section">
+
+        <h2 id="newsHeading" data-key="newsHeading">Aktuelle Neuigkeiten:</h2>
+  
+        <div class="news-item">
+          <img src="https://images.openai.com/thumbnails/080c4726f22334ce4a77a07daae17520.jpeg" alt="Earth Day 2025">
+          <a href="news.html" class="news-link">
+          <div class="news-item-content">
+            <h3>Earth Day 2025: Deutsche verlieren Interesse am Klimaschutz</h3>
+            <p>Eine aktuelle Umfrage zeigt, dass das Interesse der Deutschen am Klimaschutz seit 2019 deutlich gesunken ist. Nur noch 59% der Befragten halten Klimaschutz für wichtig.</p>
+          </div>
+        </a>
+        </div>
+  
+        <div class="news-item">
+          <img src="https://images.openai.com/thumbnails/e8566b10bff9cc46c81dd6c2733bb189.jpeg" alt="Klima-Risiko-Index 2025">
+          <a href="news.html" class="news-link">
+          <div class="news-item-content">
+            <h3>Klima-Risiko-Index 2025: Welche Länder sind am stärksten betroffen?</h3>
+            <p>Der aktuelle Klima-Risiko-Index zeigt, dass vor allem Länder im globalen Süden von extremen Wetterereignissen betroffen sind. Deutschland gehört zu den weniger betroffenen Ländern.</p>
+          </div>
+          </a>
+        </div>
+  
+        <div class="news-item">
+          <img src="https://images.openai.com/thumbnails/145eb51a84f25530e7fe7849ccb13b23.png" alt="Wettbewerb Klimaaktive Kommune 2025">
+          <a href="news.html" class="news-link">
+          <div class="news-item-content">
+            <h3>Wettbewerb Klimaaktive Kommune 2025 gestartet</h3>
+            <p>Kommunen in Deutschland können sich ab sofort für den Wettbewerb "Klimaaktive Kommune 2025" bewerben. Ziel ist es, innovative Klimaschutzprojekte auszuzeichnen.</p>
+          </div>
+          </a>
+        </div>
+  
+      </section>
+  
+      <section class="events-section">
+        <h2 id="eventsHeading" data-key="eventsHeading">Veranstaltungen & Initiativen</h2>
+  
+        <div class="news-item">
+          <img src="https://images.openai.com/thumbnails/ea2d97c51b138c8e4a3b3fef09bdb8e8.jpeg" alt="Klimaschutz in Dingolfing">
+          <a href="news.html" class="news-link">
+          <div class="news-item-content">
+            <h3>Klimaschutz in Dingolfing: Vortragsreihe 2025</h3>
+            <p>Die Stadt Dingolfing startet eine Vortragsreihe zum Thema Klimaschutz. Themen sind u.a. "Energieeffizienz im Haushalt" und "Heizungstausch".</p>
+          </div>
+          </a>
+        </div>
+  
+        <div class="news-item">
+          <img src="https://images.openai.com/thumbnails/ea2d97c51b138c8e4a3b3fef09bdb8e8.jpeg" alt="Klimafasten 2025">
+          <a href="news.html" class="news-link">
+          <div class="news-item-content">
+            <h3>Klimafasten 2025: So viel du brauchst</h3>
+            <p>Unter dem Motto "So viel du brauchst" lädt das Erzbistum Köln zu einer Fastenaktion ein, bei der Teilnehmer ihren Konsum hinterfragen und nachhaltigere Entscheidungen treffen können.</p>
+          </div>
+          </a>
+        </div>
+  
       </section>
     </main>
 
-    <footer>
-      <p>&copy; 2025 Dein Name</p>
-    </footer>
-  </body>
+
+  <footer>
+    <div class="footer-container">
+      <ul class="footer-links">
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+        <li><a href="agb.html">AGB</a></li>
+      </ul>
+      <p>&copy; 2025 CO2-World. Alle Rechte vorbehalten.</p>
+    </div>
+  </footer>
+  <script>
+  
+  
+  
+    const translations = {
+      de: {
+        navigation: "Navigation",
+        contact: "Kontakt",
+        headline: "Co2-World",
+        subtitle: "Dein Kompass für Klimawissen, Nachhaltigkeit und aktuellen Entwicklungen",
+        newsHeading: "Aktuelle Neuigkeiten:",
+        eventsHeading: "Veranstaltungen & Initiativen"
+      },
+      en: {
+        navigation: "Navigation",
+        contact: "Contact",
+        headline: "Co2-World",
+        subtitle: "Your compass for climate knowledge, sustainability, and current developments",
+        newsHeading: "Latest News:",
+        eventsHeading: "Events & Initiatives"
+      },
+      fr: {
+        navigation: "Navigation",
+        contact: "Contact",
+        headline: "Co2-World",
+        subtitle: "Votre boussole pour le climat, la durabilité et l'actualité",
+        newsHeading: "Actualités récentes :",
+        eventsHeading: "Événements & initiatives"
+      },
+      ar: {
+        navigation: "التنقل",
+        contact: "اتصال",
+        headline: "عالم ثاني أكسيد الكربون",
+        subtitle: "بوصلتك نحو المعرفة المناخية والاستدامة والتطورات الحالية",
+        newsHeading: "آخر الأخبار:",
+        eventsHeading: "المناسبات والمبادرات"
+      }
+    };
+   
+      function switchLanguage() {
+  const lang = document.getElementById('languageSwitcher').value;
+  const html = document.documentElement;
+  html.lang = lang;
+  html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+  const keys = document.querySelectorAll('[data-key]');
+  keys.forEach(el => {
+    const key = el.getAttribute('data-key');
+    if (translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+}
+  </script>
+</body>
 </html>

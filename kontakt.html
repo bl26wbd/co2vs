@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meine co2 vergleichs Website</title>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+<style>
+header {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #eef7ef;
+  -webkit-text-fill-color:  #36773a;
+}
+
+header nav ul {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+header nav ul li select {
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  color: #36773a;
+  font-family: inherit;
+}
+[dir="rtl"] header nav ul {
+  justify-content: flex-start;
+}
+header nav ul li {
+  margin-left: 20px;
+}
+
+header nav ul li a {
+  -webkit-text-fill-color: rgb(54, 103, 64);
+  font-size: 16px;
+  text-decoration: none;
+}
+
+header nav ul li a:hover {
+  text-decoration: none;
+  -webkit-text-fill-color: rgb(75, 144, 87);
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  min-width: 60px; /* Minimale Breite */
+  width: 60px; /* Startbreite */
+  background-color: #36773a;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  z-index: 1000;
+ 
+}
+
+.sidebar:hover {
+  width: 200px; /* Maximale Breite */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  width: 90%;
+  border-radius: 30px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin: 0 auto; /* zentriert bei breiter Sidebar */
+}
+
+.sidebar ul li a:hover {
+  background-color: #4e9258;
+  transform: scale(1.05);
+}
+
+.sidebar ul li a img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.sidebar:hover ul li a img {
+  transform: scale(1.1);
+}
+
+.sidebar ul li a span {
+  display: none;
+}
+
+.sidebar:hover ul li a span {
+  display: inline-block;
+}
+
+
+.home-icon {
+  position: fixed;
+  top: 7px;
+  left: 7px;
+  background-color: #36773a;
+  border-radius: 50%;
+  padding: 10px;
+  display: none;
+  z-index: 1001;
+}
+
+.home-icon img {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+.home-icon:hover {
+  background-color: #264653;
+}
+
+body {
+    margin-left: 60px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f4;
+    padding: 0px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+  }
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+  th {
+    cursor: pointer;
+  }
+  input {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+    max-width: 300px;
+  }
+  footer {
+  background-color: #36773a;
+  color: rgb(199, 247, 202);
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Volle Breite */
+  margin: 0;   /* Kein Rand */
+}
+
+.footer-container {
+  width: 100%; /* Volle Breite */
+  padding: 0 20px; /* Padding beibehalten */
+}
+
+.footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-links li {
+  margin: 0;
+}
+
+.footer-links a {
+  color: rgb(199, 247, 202);
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.footer-links a:hover {
+  text-decoration: none;
+  -webkit-text-fill-color: rgb(255, 255, 255);
+}
+body { font-family: Arial, sans-serif;  }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 0.5rem; border: 1px solid #ccc; text-align: left; }
+    input, button, select { margin: 0.5rem 0; padding: 0.5rem; }
+    .controls { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+
+    main {
+       
+         flex: 1;
+         display: flex;
+         flex-direction: column;
+         min-height: 85vh;
+
+   }
+
+@media (max-width: 1024px) {
+    body{
+      margin-left: 0px;
+    }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+      }
+      .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+  .sidebar ul li {
+    margin: 0 10px;
+    list-style: none;
+  }
+  .sidebar a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+      .sidebar:hover {
+        width: 100%;
+      }
+      .menu-text {
+    display: none !important;
+  }
+
+}
+@media (max-width: 768px) {
+    body{
+      margin-left: 0px;
+    }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+      }
+      .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+  .sidebar ul li {
+    margin: 0 10px;
+    list-style: none;
+  }
+  .sidebar a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+      .sidebar:hover {
+        width: 100%;
+      }
+      .menu-text {
+    display: none !important;
+  }
+
+}
+   </style>
+   
+
+
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <ul>
+ 
+        <li><a  href="kontakt.html">Kontakt</a></li>
+        <li><select id="languageSwitcher" onchange="switchLanguage()">
+          <option value="de" selected>Deutsch</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="ar">العربية</option>
+        </select></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="sidebar">
+    <ul>
+      <li><a href="/index.html"><img src="co2.png" alt="Home"><span class="menu-text"> Home</span></a></li>
+      <li><a href="welt.html"><img src="pixelWelt.png" alt="Welt"><span class="menu-text">  Länder</span></a></li>
+      <li><a href="unternehmen.html"><img src="unternehmen.png" alt="firma"><span class="menu-text">  Firmen</span></a></li>
+      <li><a href="mission.html"><img src="mission.png" alt="Welt"><span class="menu-text">  Mission</span></a></li>
+  <li><a href="gemeinsam.html"><img src="planm.png" alt="Welt"><span class="menu-text">  Mitmachen</span></a></li>
+    </ul> 
+  </div>
+
+  
+    <a href="/index.html" class="home-icon"><img src="co2.png" alt="Home"></a>
+  
+
+    <main>
+      <h1>
+      Hier würden sie jetzt unsere Kontaktdaten finden.
+   </h1>
+  </main>
+  
+
+
+  <footer>
+    <div class="footer-container">
+      <ul class="footer-links">
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+        <li><a href="agb.html">AGB</a></li>
+      </ul>
+      <p>&copy; 2025 CO2-World. Alle Rechte vorbehalten.</p>
+    </div>
+  </footer>
+  <script>
+    const translations = {
+   de: { navigation: "Navigation", contact: "Kontakt", tableTitle: "CO₂-Ausstoß nach Ländern und Unternehmen", searchPlaceholder: "Suche nach Land...", sortNameAsc: "Unternehmen A-Z", sortNameDesc: "Unternehmen Z-A", sortCo2Asc: "CO₂ aufsteigend", sortCo2Desc: "CO₂ absteigend", landHeader: "Land", companyHeader: "Unternehmen", co2Header: "CO₂-Ausstoß (t)" },
+   en: { navigation: "Navigation", contact: "Contact", tableTitle: "CO₂ Emissions by Country and Company", searchPlaceholder: "Search by country...", sortNameAsc: "Company A-Z", sortNameDesc: "Company Z-A", sortCo2Asc: "CO₂ ascending", sortCo2Desc: "CO₂ descending", landHeader: "Country", companyHeader: "Company", co2Header: "CO₂ Emissions (t)" },
+   fr: { navigation: "Navigation", contact: "Contact", tableTitle: "Émissions de CO₂ par pays et entreprise", searchPlaceholder: "Rechercher un pays...", sortNameAsc: "Entreprise A-Z", sortNameDesc: "Entreprise Z-A", sortCo2Asc: "CO₂ croissant", sortCo2Desc: "CO₂ décroissant", landHeader: "Pays", companyHeader: "Entreprise", co2Header: "Émissions de CO₂ (t)" },
+   ar: { navigation: "التنقل", contact: "اتصال", tableTitle: "انبعاثات CO₂ حسب الدولة والشركة", searchPlaceholder: "ابحث عن دولة...", sortNameAsc: "الشركة من أ إلى ي", sortNameDesc: "الشركة من ي إلى أ", sortCo2Asc: "CO₂ تصاعدي", sortCo2Desc: "CO₂ تنازلي", landHeader: "الدولة", companyHeader: "الشركة", co2Header: "انبعاثات CO₂ (طن)" }
+ };
+ 
+
+   function switchLanguage() {
+     const selectedLang = document.getElementById('languageSwitcher').value;
+     app.currentLang = selectedLang;
+   }
+</script>
+</body>
+</html>
