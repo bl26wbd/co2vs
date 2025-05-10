@@ -1,5 +1,0 @@
-[
-    { "id": 1, "land": "Deutschland", "unternehmen": "Firma A", "co2": 1000 },
-    { "id": 2, "land": "USA", "unternehmen": "Firma B", "co2": 1500 },
-    { "id": 3, "land": "China", "unternehmen": "Firma C", "co2": 2000 }
-  ]
